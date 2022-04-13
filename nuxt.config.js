@@ -33,7 +33,28 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/firebase',
   ],
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyCr4Dd0uwp3w-oSQljXuSK1N5iRz3O_uiI',
+      authDomain: 'chat-5bd45.firebaseapp.com',
+      databaseURL: 'https://chat-5bd45-default-rtdb.firebaseio.com',
+      projectId: 'chat-5bd45',
+      storageBucket: 'chat-5bd45.appspot.com',
+      messagingSenderId: '867002699120',
+      appId: '1:867002699120:web:609e5bc652641f69e093b5',
+    },
+    services: {
+      auth: true,
+      database: true,
+    },
+    auth: {
+      initialize: {
+        onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
+      },
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
