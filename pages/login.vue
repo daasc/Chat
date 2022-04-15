@@ -24,7 +24,7 @@ export default {
           this.$store.commit('auth/ON_AUTH_STATE_CHANGED_MUTATION', {
             authUser: user.user.multiFactor.user,
           })
-          this.$router.push('/')
+          this.$router.push('/chat')
         })
         .catch((error) => {
           console.error(error)
