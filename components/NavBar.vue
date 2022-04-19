@@ -11,7 +11,7 @@ export default {
     async signOut() {
       await this.$fire.auth.signOut()
       this.$store.commit('auth/SIGN_OUT')
-      this.$router.push('/login')
+      this.$router.push('/')
     },
   },
 }
