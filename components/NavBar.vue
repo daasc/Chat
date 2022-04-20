@@ -23,6 +23,7 @@ export default {
   height: 60px;
   color: #d5d5d7;
   font-weight: bold;
+  border-bottom: 1px solid #2c3538;
   justify-content: space-between;
   align-items: center;
 
