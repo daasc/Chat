@@ -20,10 +20,27 @@ export default {
       const provider = new this.$fireModule.auth.GoogleAuthProvider()
       this.$fire.auth
         .signInWithPopup(provider)
-        .then((user) => {
+        .then(async (user) => {
           this.$store.commit('auth/ON_AUTH_STATE_CHANGED_MUTATION', {
             authUser: user.user.multiFactor.user,
           })
+          let userExits = false
+          await this.$fire.database.ref('users').on('value', (snapshot) => {
+            const listUsers = snapshot.val()
+            if (listUsers[user.user.multiFactor.user.uid]) {
+              userExits = true
+            }
+          })
+
+          if (!userExits) {
+            this.$fire.database
+              .ref('users/' + user.user.multiFactor.user.uid)
+              .set({
+                name: user.user.multiFactor.user.displayName,
+                email: user.user.multiFactor.user.email,
+                photoURL: user.user.multiFactor.user.photoURL,
+              })
+          }
           this.$router.push('/chat')
         })
         .catch((error) => {

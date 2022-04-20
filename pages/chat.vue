@@ -1,16 +1,18 @@
 <template>
   <div>
     <nav-bar></nav-bar>
+    <list-users></list-users>
     <nuxt></nuxt>
   </div>
 </template>
 
 <script>
+import ListUsers from '~/components/ListUsers.vue'
 import NavBar from '~/components/NavBar.vue'
 
 export default {
   name: 'IndexPage',
-  components: { NavBar },
+  components: { NavBar, ListUsers },
   created() {
     if (typeof window !== 'undefined') {
       const user = JSON.parse(localStorage.getItem('user'))
