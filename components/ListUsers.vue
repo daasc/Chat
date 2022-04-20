@@ -1,11 +1,8 @@
 <template>
   <div class="users">
-    <div>
-      <input id="" type="search" name="" />
-    </div>
-
+    <search-user @doSearch="setSearchTerm"></search-user>
     <card-user
-      v-for="(item, index) in users"
+      v-for="(item, index) in listUsers"
       :key="index"
       :name="item.name"
       :photo="item.photoURL"
@@ -14,18 +11,38 @@
 </template>
 <script>
 import cardUser from './cardUser.vue'
+import SearchUser from './SearchUser.vue'
 export default {
   name: 'ListUsers',
-  components: { cardUser },
+  components: { cardUser, SearchUser },
   data() {
     return {
       users: [],
+      search: '',
     }
+  },
+  computed: {
+    listUsers() {
+      if (this.search !== '') {
+        const result = {}
+        for (const key in this.users) {
+          const searchName = new RegExp(this.search, 'i')
+          if (this.users[key].name.match(searchName)) {
+            result[key] = this.users[key]
+          }
+        }
+        return result
+      }
+      return this.users
+    },
   },
   created() {
     this.getUser()
   },
   methods: {
+    setSearchTerm({ term }) {
+      this.search = term
+    },
     getUser() {
       const users = this.$fire.database.ref(`/users`)
       users.on('value', (snapshot) => {
