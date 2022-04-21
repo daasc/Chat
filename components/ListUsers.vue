@@ -44,13 +44,23 @@ export default {
       this.search = term
     },
     getUser() {
-      const users = this.$fire.database.ref(`/users`)
-      users.on('value', (snapshot) => {
-        this.users = snapshot.val()
-        this.$once('hook:beforeDestroy', () => {
-          users.off()
+      if (typeof window !== 'undefined') {
+        const users = this.$fire.database.ref(`/users`)
+        const user = JSON.parse(localStorage.getItem('user'))
+        users.on('value', (snapshot) => {
+          const result = snapshot.val()
+          const filterUsers = {}
+          for (const key in result) {
+            if (result[key].email !== user.email) {
+              filterUsers[key] = result[key]
+            }
+          }
+          this.users = filterUsers
+          this.$once('hook:beforeDestroy', () => {
+            users.off()
+          })
         })
-      })
+      }
     },
   },
 }

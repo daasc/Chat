@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <nav-bar></nav-bar>
     <list-users></list-users>
     <nuxt></nuxt>
@@ -27,3 +27,9 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.container {
+  width: 75%;
+  margin: 0 auto;
+}
+</style>
