@@ -1,18 +1,24 @@
 <template>
   <div class="container">
     <nav-bar></nav-bar>
-    <list-users></list-users>
-    <nuxt></nuxt>
+    <di class="chat">
+      <list-users></list-users>
+      <div class="chat__main">
+        <chat-comments></chat-comments>
+        <div></div>
+      </div>
+    </di>
   </div>
 </template>
 
 <script>
+import ChatComments from '~/components/ChatComments.vue'
 import ListUsers from '~/components/ListUsers.vue'
 import NavBar from '~/components/NavBar.vue'
 
 export default {
   name: 'IndexPage',
-  components: { NavBar, ListUsers },
+  components: { NavBar, ListUsers, ChatComments },
   created() {
     if (typeof window !== 'undefined') {
       const user = JSON.parse(localStorage.getItem('user'))
@@ -31,5 +37,14 @@ export default {
 .container {
   width: 75%;
   margin: 0 auto;
+
+  .chat {
+    display: flex;
+
+    .chat__main {
+      width: 70%;
+      height: 100vh;
+    }
+  }
 }
 </style>
