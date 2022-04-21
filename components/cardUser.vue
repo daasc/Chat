@@ -2,7 +2,7 @@
   <div class="list">
     <div class="card">
       <img :src="photo" />
-      <span>{{ name }}</span>
+      <span class="card__name">{{ name }}</span>
     </div>
     <div class="line"></div>
   </div>
@@ -37,6 +37,9 @@ export default {
     align-items: center;
     gap: 20px;
     color: #e3e3e4;
+    .card__name {
+      text-transform: lowercase;
+    }
     img {
       width: 50px;
       height: 50px;

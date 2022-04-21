@@ -31,7 +31,7 @@ export default {
     background-color: #0d1117;
     border: 1px solid #2c3538;
     padding: 10px;
-    width: 50%;
+    width: 90%;
     margin: 15px;
     color: #e3e3e4;
   }
