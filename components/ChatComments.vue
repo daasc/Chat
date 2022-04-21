@@ -9,7 +9,7 @@ export default {
 <style lang="scss" scoped>
 .comments {
   width: 100%;
-  height: 80%;
+  height: 88%;
   background-color: #18181f;
 }
 </style>

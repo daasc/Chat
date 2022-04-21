@@ -5,7 +5,7 @@
       <list-users></list-users>
       <div class="chat__main">
         <chat-comments></chat-comments>
-        <div></div>
+        <send-comments></send-comments>
       </div>
     </di>
   </div>
@@ -15,10 +15,11 @@
 import ChatComments from '~/components/ChatComments.vue'
 import ListUsers from '~/components/ListUsers.vue'
 import NavBar from '~/components/NavBar.vue'
+import SendComments from '~/components/SendComments.vue'
 
 export default {
   name: 'IndexPage',
-  components: { NavBar, ListUsers, ChatComments },
+  components: { NavBar, ListUsers, ChatComments, SendComments },
   created() {
     if (typeof window !== 'undefined') {
       const user = JSON.parse(localStorage.getItem('user'))
@@ -43,7 +44,6 @@ export default {
 
     .chat__main {
       width: 70%;
-      height: 100vh;
     }
   }
 }

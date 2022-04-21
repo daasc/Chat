@@ -68,10 +68,11 @@ export default {
 <style lang="scss" scoped>
 .users {
   display: flex;
-  height: calc(100vh - 60px);
+  height: calc(90vh - 60px);
   width: 30%;
   background-color: #1f1f29;
   flex-direction: column;
   gap: 15px;
+  border-right: 1px solid #2c3538;
 }
 </style>
