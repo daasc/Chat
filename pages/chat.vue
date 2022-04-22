@@ -44,6 +44,7 @@ export default {
 
     .chat__main {
       width: 70%;
+      max-height: calc(90vh - 60px);
     }
   }
 }

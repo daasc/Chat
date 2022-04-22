@@ -6,6 +6,8 @@
       :key="index"
       :name="item.name"
       :photo="item.photoURL"
+      :uid="item.uid"
+      @setChatUid="chatUid"
     ></card-user>
   </div>
 </template>
@@ -40,6 +42,9 @@ export default {
     this.getUser()
   },
   methods: {
+    chatUid({ uid }) {
+      this.$store.commit('auth/SET_CHAT_UID', uid)
+    },
     setSearchTerm({ term }) {
       this.search = term
     },
@@ -53,6 +58,7 @@ export default {
           for (const key in result) {
             if (result[key].email !== user.email) {
               filterUsers[key] = result[key]
+              filterUsers[key].uid = key
             }
           }
           this.users = filterUsers

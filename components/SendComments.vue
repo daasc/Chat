@@ -1,8 +1,13 @@
 <template>
   <div class="send">
     <div class="inputs">
-      <input v-model="message" type="text" class="send__input" />
-      <img v-if="showSend" src="@/assets/img/send.svg" alt="" />
+      <input
+        v-model="message"
+        type="text"
+        class="send__input"
+        @keyup.enter="send()"
+      />
+      <img v-if="showSend" src="@/assets/img/send.svg" alt="" @click="send()" />
     </div>
   </div>
 </template>
@@ -17,6 +22,30 @@ export default {
   computed: {
     showSend() {
       return !!this.message
+    },
+  },
+  methods: {
+    async send() {
+      const chatUid = this.$store.state.auth.chatUid
+      const time = new Date().getTime()
+      const user = JSON.parse(localStorage.getItem('user'))
+      console.log(chatUid, time, user)
+      await this.$fire.database
+        .ref(`messages/${user.uid}/${chatUid}/${time}`)
+        .set({
+          user: user.uid,
+          text: this.message,
+          viewed: false,
+        })
+      await this.$fire.database
+        .ref(`messages/${chatUid}/${user.uid}/${time}`)
+        .set({
+          user: user.uid,
+          text: this.message,
+          viewed: false,
+        })
+      this.$store.commit('auth/SEND_MESSAGE', this.message)
+      this.message = ''
     },
   },
 }

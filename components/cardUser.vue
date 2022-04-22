@@ -1,5 +1,5 @@
 <template>
-  <div class="list">
+  <div class="list" @click="setChatUid()">
     <div class="card">
       <img :src="photo" />
       <span class="card__name">{{ name }}</span>
@@ -18,6 +18,15 @@ export default {
     name: {
       type: String,
       default: '',
+    },
+    uid: {
+      type: String,
+      default: '',
+    },
+  },
+  methods: {
+    setChatUid() {
+      this.$emit('setChatUid', { uid: this.uid })
     },
   },
 }
