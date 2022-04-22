@@ -1,11 +1,19 @@
 export const state = () => ({
   user: null,
+  chatUid: '',
+  lastMessage: '',
 })
 
 export const mutations = {
   SIGN_OUT: (state) => {
     state.user = null
     localStorage.setItem('user', JSON.stringify(null))
+  },
+  SET_CHAT_UID: (state, payload) => {
+    state.chatUid = payload
+  },
+  SEND_MESSAGE: (state, payload) => {
+    state.lastMessage = payload
   },
   ON_AUTH_STATE_CHANGED_MUTATION: (state, { authUser, claims }) => {
     const user = JSON.parse(localStorage.getItem('user'))
