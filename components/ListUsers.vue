@@ -79,6 +79,7 @@ export default {
   background-color: #1f1f29;
   flex-direction: column;
   gap: 15px;
+  overflow-y: scroll;
   border-right: 1px solid #2c3538;
 }
 </style>
