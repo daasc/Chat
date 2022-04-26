@@ -1,11 +1,13 @@
 <template>
   <div class="comments">
     <card-message
-      v-for="(item, index) in messages"
+      v-for="(item, index) in messages.messages"
       :key="index"
+      :can-show-hour="messages.hour.includes(index)"
       :current-user="item.user === uid"
       :text="item.text"
       :viewed="item.viewed"
+      :hour="index"
     ></card-message>
   </div>
 </template>
@@ -17,6 +19,7 @@ export default {
   data() {
     return {
       otherUserUid: this.$store.state.auth.chatUid,
+      addHours: [],
     }
   },
   computed: {
@@ -31,20 +34,28 @@ export default {
     messages() {
       if (typeof window !== 'undefined') {
         let result = {}
-        console.log(this.$store.state.auth.lastMessage)
         const chatUid = this.$store.state.auth.chatUid
         const user = JSON.parse(localStorage.getItem('user'))
         const messages = this.$fire.database.ref(
           `/messages/${user.uid}/${chatUid}`
         )
+        const addHour = []
         messages.on('value', (snapshot) => {
           result = snapshot.val()
+          const newArray = Object.keys(result)
+          for (const key in result) {
+            if (
+              result[key].user !==
+              result[newArray[newArray.indexOf(key) + 1]].user
+            ) {
+              addHour.push(key)
+            }
+          }
         })
         this.$once('hook:beforeDestroy', () => {
           messages.off()
         })
-        console.log(result)
-        return result
+        return { messages: result, hour: addHour }
       }
       return {}
     },
