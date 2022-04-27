@@ -33,6 +33,7 @@ export default {
     messages() {
       if (typeof window !== 'undefined' && this.$store.state.auth.chatUid) {
         let result = {}
+        console.log(this.$store.state.auth.lastMessage)
         const chatUid = this.$store.state.auth.chatUid
         const user = JSON.parse(localStorage.getItem('user'))
         const messages = this.$fire.database.ref(
@@ -72,8 +73,8 @@ export default {
       const user = JSON.parse(localStorage.getItem('user'))
       for (const key in messagesFiltered) {
         const updates = {}
-        if (user.uid !== chatUid) {
-          updates[`messages/${user.uid}/${chatUid}/${key}`] = {
+        if (user.uid !== messagesFiltered[key].user) {
+          updates[`messages/${chatUid}/${user.uid}/${key}`] = {
             user: messagesFiltered[key].user,
             text: messagesFiltered[key].text,
             viewed: true,
